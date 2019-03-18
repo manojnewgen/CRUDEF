@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -28,6 +29,22 @@ namespace CRUDEF
 
         public void ConfigureServices(IServiceCollection services)
         {
+            // [Asma Khalid]: Authorization settings.  
+            services.AddAuthentication(options =>
+            {
+                options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            }).AddCookie(options =>
+            {
+                options.LoginPath = new PathString("/Login");
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(5.0);
+            });
+            services.AddMvc().AddRazorPagesOptions(options =>
+            {
+                options.Conventions.AuthorizeFolder("/");
+                options.Conventions.AllowAnonymousToPage("/Login");
+            });
             services.AddDbContext<SchoolContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddMvc();
@@ -39,6 +56,7 @@ namespace CRUDEF
 
             app.UseStaticFiles();
             app.UseDeveloperExceptionPage();
+            app.UseAuthentication();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

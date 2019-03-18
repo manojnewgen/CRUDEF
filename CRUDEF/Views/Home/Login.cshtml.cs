@@ -11,10 +11,10 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace CRUDEF.Views.Home
 {
-    public class Login: PageModel
+    public class IndexModel : PageModel
     {
         private readonly CPU0118Context DataBaseManager;
-        public Login(CPU0118Context dbContext)
+        public IndexModel(CPU0118Context dbContext)
         {
             
            try  
@@ -38,7 +38,7 @@ namespace CRUDEF.Views.Home
                 if (this.User.Identity.IsAuthenticated)
                 {
                     // Home Page.  
-                    return this.RedirectToPage("/Home/Index");
+                    return this.RedirectToPage("/Home/Login");
                 }
             }
             catch (Exception ex)
