@@ -20,7 +20,21 @@ namespace CRUDEF.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return View(schoolContext.Teacher);
+        }
+        [HttpDelete]
+        public IActionResult Delete(int id) => View();
+       
+
+        public IActionResult Update(int id)=> View(schoolContext.Teacher.Where(a => a.Id == id).FirstOrDefault());
+
+        [HttpPost]
+        [ActionName("Update")]
+        public IActionResult Update_Post(Teacher teacher)
+        {
+            schoolContext.Teacher.Update(teacher);
+            schoolContext.SaveChanges();
+            return RedirectToAction("Index");
         }
         public IActionResult Create()
         {
@@ -38,5 +52,28 @@ namespace CRUDEF.Controllers
             else
                 return View();
         }
+        [ActionName("RegisterView")]
+        public IActionResult Register()
+        {          
+                return View(schoolContext.Employee);
+        }
+        [ActionName("Register")]
+        public IActionResult Register(Eemployee emp)
+        {
+            if (ModelState.IsValid)
+            {
+                schoolContext.Employee.Add(emp);
+                schoolContext.SaveChanges();
+                return RedirectToAction("RegisterView");
+            }
+            else
+                return View();
+        }
+        [ActionName("Login")]
+        public IActionResult Login()
+        {
+            return View();
+        }
+       
     }
 }

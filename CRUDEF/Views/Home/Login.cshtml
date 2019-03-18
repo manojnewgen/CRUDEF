@@ -1,0 +1,90 @@
+﻿@*@model CRUDEF.Models.Teacher
+
+    @{
+        ViewData["Title"] = "Index";
+    }
+
+    <h2>Index</h2>
+
+    <div>
+        <h4>Teacher</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Skills)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Skills)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.TotalStudents)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.TotalStudents)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Salary)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Salary)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.AddedOn)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.AddedOn)
+            </dd>
+        </dl>
+    </div>
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+        <a asp-action="Index">Back to List</a>
+    </div>*@
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper  Email, CRUDEF.TagHelpers.Email
+
+@model CRUDEF.Models.LoginViewModel
+
+@{
+    var title = "Login";
+}
+
+<h1>@title</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Login" asp-controller="Home">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Username" class="control-label"></label>
+                <input asp-for="Username" class="form-control" />
+                <span asp-validation-for="Username" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+           
+            <div class="form-group">
+                <input type="submit" value="submit" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<a asp-protocol="https" asp-host="microsoft.com"
+   asp-controller="Home" asp-action="Create">Create</a>
+<a asp-action="Register">Register</a>
+<a asp-action="Login">Login</a>
+
+
+
+
